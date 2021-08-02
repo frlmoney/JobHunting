@@ -9,6 +9,7 @@ PS:
 [java C#数据类型对照](https://www.ibm.com/support/knowledgecenter/SSTVLU_8.6.1/com.ibm.websphere.extremescale.doc/rxsxdfequiv.html): 
 
 - 除String以外，所使用字段如果需要为null仅需在类型后增加?来标注；
+
 - 枚举类型的差异，导致java中只能通过Integer来接收；
 - MySql没有对应的bool类型，实际使用int来储存，现有生成框架只能将其生成为Integer，需手动修改为Boolean；
 - 实体数据类型的规范，之前开发中，使用String来存储Date类型，此处必须修改为Date；
@@ -40,11 +41,13 @@ Date等类型and creationTime != ''可忽略，有时会有因为其导致错误
 
 #### 第三方类库引用标准化：
 
-如处理json，规定为阿里巴巴的处理类(alibaba/fastjson)，现有项目中发现引用很多第三方类库，用法规则不同，使用起来没有同一标准; 在未使用前后端分离时，前端引用太多类库，维护难，效果差，组件不灵活；
+如处理json，规定为阿里巴巴的处理类(alibaba/fastjson)，现有项目中发现引用很多第三方类库，用法规则不同，使用起来没有同一标准;
+在未使用前后端分离时，前端引用太多类库，维护难，效果差，组件不灵活；
 
 #### 代码编写规范：
 
-- 后台反馈的前台的状态码，本应为int类型，现无统一标准，String返回也是时有发生，导致前端判断时出错。该类型建议通过枚举统一管理； 所有逻辑代码均在ServiceImpl中编写；
+- 后台反馈的前台的状态码，本应为int类型，现无统一标准，String返回也是时有发生，导致前端判断时出错。该类型建议通过枚举统一管理；
+  所有逻辑代码均在ServiceImpl中编写；
 - ServiceImpl中只能引用自己的Mapper，其他表中的数据需通过其他表的ServiceImpl来调用；
 - Controller仅作数据接收和调用ServiceImpl中的方法使用，不应有任何逻辑代码出现；
 - domain对应的实体类，所有字段当以数据库中属性统一；
@@ -69,17 +72,11 @@ Date等类型and creationTime != ''可忽略，有时会有因为其导致错误
 #### 实际开发现状：
 
 - 赶工导致的通病,从不考虑代码通用性（无法复用）及数据结构（数据库表结构设计）,每个项目一种写法，单人维护，造成他人难以接手；
-
 - 核心代码封装，源码不公开，无专人管理，最终导致各个项目引用的包不同，出现问题无法修改。
-
 - 公司无自己的核心架构代码，一直使用若依框架，该框架过时，且bug较多，很多设计不完善，模板生成过于教条化，导致开发时代码冗余，维护时增加开发成本。
-
 - 人员分配理念，前端人员与后端人员独立开发分工明确，前后端各执其责,仅仅是个口号而已；
-
 - 项目不考虑SEO，现成的iview admin框架不用，thymeleaf大大降低了开发效率及耦合度，导致mvc+api接口的不伦布类的代码模式，小程序及app等无法共用一套后台代码；
-
 - 新增、编辑页面逻辑代码一样，分开编码，导致实际过程中开发人员经常修改了编辑页面忘记修改新增页面，大大增加了维护难度和出错率；
-
 - 权限有了新增、编辑居然还需要保存操作才能对新增、编辑进行操作，若依的神逻辑；
 
-  # [[项目底层代码建议](https://github.com/frlmoney/JobHunting/blob/main/项目底层代码建议)](https://github.com/frlmoney/JobHunting/blob/main/%E9%A1%B9%E7%9B%AE%E5%BA%95%E5%B1%82%E4%BB%A3%E7%A0%81%E5%BB%BA%E8%AE%AE)
+  # [项目底层代码建议](https://github.com/frlmoney/JobHunting/blob/main/%E9%A1%B9%E7%9B%AE%E5%BA%95%E5%B1%82%E4%BB%A3%E7%A0%81%E5%BB%BA%E8%AE%AE)
